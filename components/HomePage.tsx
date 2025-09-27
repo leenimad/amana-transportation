@@ -9,7 +9,7 @@ import AllRoutesOverview from './AllRoutesOverview';
 import FavoriteRoutesOverview from './FavoriteRoutesOverview';
 import AlertBanner from './AlertBanner';
 import AlertModal from './AlertModal';
-import type { BusRoute, Location } from '../types';
+import type { BusRoute, Location, BusStop } from '../types';
 
 // Dynamically import BusMap to avoid SSR issues with Leaflet
 const BusMap = dynamic(() => import('./BusMap'), {
@@ -228,7 +228,7 @@ const HomePage: React.FC<HomePageProps> = ({ busRoutes, isLoading, error, favori
         };
         setUserLocation(currentUserLocation);
 
-        let closestStop = null;
+        let closestStop: BusStop | null = null;
         let minDistance = Infinity;
 
         selectedRoute.stops.forEach(stop => {
