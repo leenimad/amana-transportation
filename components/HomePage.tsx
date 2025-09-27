@@ -239,9 +239,7 @@ const HomePage: React.FC<HomePageProps> = ({ busRoutes, isLoading, error, favori
           }
         });
         
-        if (closestStop) {
-          setNearestStopId(closestStop.id);
-        }
+         setNearestStopId((closestStop as unknown as BusStop).id);
         setIsFindingLocation(false);
       },
       (error) => {
