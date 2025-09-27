@@ -112,7 +112,10 @@ const HomePage: React.FC<HomePageProps> = ({ busRoutes, isLoading, error, favori
     }
   }, [scrollToAnchor, onAnchorScrolled]);
 
-  const selectedRoute = busRoutes.find(route => route.id === selectedRouteId) || null;
+  // const selectedRoute = busRoutes.find(route => route.id === selectedRouteId) || null;
+const selectedRoute = busRoutes.find(
+  (route): route is BusRoute => route.id === selectedRouteId
+) || null;
 
   const haversineDistance = (coords1: Location, coords2: Location) => {
     const toRad = (x: number) => (x * Math.PI) / 180;
@@ -203,53 +206,106 @@ const HomePage: React.FC<HomePageProps> = ({ busRoutes, isLoading, error, favori
     };
   }, [selectedRoute, nearestStopId]);
 
-  const handleFindNearestStop = () => {
-    if (!selectedRoute) {
-      setLocationError("Please select a route first.");
-      setTimeout(() => setLocationError(null), 3000);
-      return;
-    }
+  // const handleFindNearestStop = () => {
+  //   if (!selectedRoute) {
+  //     setLocationError("Please select a route first.");
+  //     setTimeout(() => setLocationError(null), 3000);
+  //     return;
+  //   }
     
-    setIsFindingLocation(true);
-    setLocationError(null);
-    setNearestStopId(null);
+  //   setIsFindingLocation(true);
+  //   setLocationError(null);
+  //   setNearestStopId(null);
 
-    if (!navigator.geolocation) {
-      setLocationError("Geolocation is not supported by your browser.");
-      setIsFindingLocation(false);
-      return;
-    }
+  //   if (!navigator.geolocation) {
+  //     setLocationError("Geolocation is not supported by your browser.");
+  //     setIsFindingLocation(false);
+  //     return;
+  //   }
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const currentUserLocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        setUserLocation(currentUserLocation);
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       const currentUserLocation = {
+  //         lat: position.coords.latitude,
+  //         lng: position.coords.longitude,
+  //       };
+  //       setUserLocation(currentUserLocation);
 
-        let closestStop: BusStop | null = null;
-        let minDistance = Infinity;
+  //       let closestStop: BusStop | null = null;
+  //       let minDistance = Infinity;
 
-        selectedRoute.stops.forEach(stop => {
-          const distance = haversineDistance(currentUserLocation, stop.location);
-          if (distance < minDistance) {
-            minDistance = distance;
-            closestStop = stop;
-          }
-        });
+  //       selectedRoute.stops.forEach(stop => {
+  //         const distance = haversineDistance(currentUserLocation, stop.location);
+  //         if (distance < minDistance) {
+  //           minDistance = distance;
+  //           closestStop = stop;
+  //         }
+  //       });
         
-         setNearestStopId((closestStop as unknown as BusStop).id);
-        setIsFindingLocation(false);
-      },
-      (error) => {
-        setLocationError(`Error getting location: ${error.message}`);
-        setIsFindingLocation(false);
-        setTimeout(() => setLocationError(null), 5000);
-      }
-    );
-  };
-  
+  //       if (closestStop) {
+  //         setNearestStopId(closestStop.id);
+  //       }
+  //       setIsFindingLocation(false);
+  //     },
+  //     (error) => {
+  //       setLocationError(`Error getting location: ${error.message}`);
+  //       setIsFindingLocation(false);
+  //       setTimeout(() => setLocationError(null), 5000);
+  //     }
+  //   );
+  // };
+  const handleFindNearestStop = () => {
+  if (!selectedRoute) {
+    setLocationError("Please select a route first.");
+    setTimeout(() => setLocationError(null), 3000);
+    return;
+  }
+
+  setIsFindingLocation(true);
+  setLocationError(null);
+  setNearestStopId(null);
+
+  if (!navigator.geolocation) {
+    setLocationError("Geolocation is not supported by your browser.");
+    setIsFindingLocation(false);
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const currentUserLocation: Location = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      setUserLocation(currentUserLocation);
+if (selectedRoute) {
+  let closestStop: BusStop | undefined;
+  let minDistance = Infinity;
+
+  selectedRoute.stops.forEach((stop) => {
+    const distance = haversineDistance(currentUserLocation, stop.location);
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestStop = stop;
+    }
+  });
+
+  if (closestStop) {
+    setNearestStopId(closestStop.id); // ✅ no TypeScript error
+  }
+}
+
+
+      setIsFindingLocation(false);
+    },
+    (error) => {
+      setLocationError(`Error getting location: ${error.message}`);
+      setIsFindingLocation(false);
+      setTimeout(() => setLocationError(null), 5000);
+    }
+  );
+};
+
   const handleSetAlert = (stopId: number) => {
     if (!navigator.geolocation) {
       setLocationError("Geolocation is not supported for alerts.");
