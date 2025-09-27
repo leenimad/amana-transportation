@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"components\\\\HomePage.tsx -> ./BusMap\":{\"id\":\"components\\\\HomePage.tsx -> ./BusMap\",\"files\":[\"static/chunks/_app-pages-browser_components_BusMap_tsx.js\"]}}"

@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+}
+.leaflet-popup-content {
+  font-family: 'Inter', sans-serif;
+}
+.leaflet-control-layers-toggle {
+  background-image: none !important;
+  width: 36px !important;
+  height: 36px !important;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.leaflet-control-layers-toggle::after {
+  content: '🗺️';
+  font-size: 20px;
+}
+.leaflet-control-layers {
+  border-radius: 8px;
+}
+ .leaflet-control-layers-base label {
+  font-size: 14px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+.pulse-ring {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes modal-pop-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-modal-pop-in {
+    animation: modal-pop-in 0.2s ease-out forwards;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* === Accessibility Mode Styles === */
+html.accessibility-mode {
+  font-size: 110%;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
+html.accessibility-mode body,
+html.accessibility-mode .bg-gray-100 {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* General component overrides */
+html.accessibility-mode .bg-white,
+html.accessibility-mode .bg-gray-50,
+html.accessibility-mode .bg-gray-200,
+html.accessibility-mode .bg-amber-100,
+html.accessibility-mode .bg-green-100,
+html.accessibility-mode .bg-green-200,
+html.accessibility-mode .bg-blue-100,
+html.accessibility-mode .bg-red-100,
+html.accessibility-mode .bg-yellow-100,
+html.accessibility-mode .bg-green-50,
+html.accessibility-mode .bg-amber-200 {
+  background-color: #1a1a1a !important;
+  border: 1px solid #cccccc !important;
+  color: #ffffff !important;
+}
+
+html.accessibility-mode .text-gray-500,
+html.accessibility-mode .text-gray-600,
+html.accessibility-mode .text-gray-700,
+html.accessibility-mode .text-gray-800,
+html.accessibility-mode .text-gray-900,
+html.accessibility-mode .text-black {
+  color: #f0f0f0 !important;
+}
+
+html.accessibility-mode .border-gray-200,
+html.accessibility-mode .border-gray-700 {
+  border-color: #777777 !important;
+}
+
+/* Header & Footer */
+html.accessibility-mode .bg-gray-800 {
+  background-color: #111111 !important;
+}
+html.accessibility-mode .border-green-500 {
+    border-color: #ffff00 !important;
+}
+html.accessibility-mode .text-white {
+  color: #ffffff !important;
+}
+html.accessibility-mode .text-green-400 {
+  color: #ffff00 !important;
+}
+html.accessibility-mode .text-gray-400 {
+  color: #bbbbbb !important;
+}
+
+/* Buttons and Links */
+html.accessibility-mode button,
+html.accessibility-mode [role="button"] {
+    transition: none !important; /* Disable transitions that might obscure focus */
+}
+
+html.accessibility-mode .bg-gray-300 {
+  background-color: #555555 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff;
+}
+html.accessibility-mode .bg-green-600,
+html.accessibility-mode .bg-blue-500 {
+  background-color: #000000 !important;
+  color: #ffff00 !important;
+  border: 2px solid #ffff00 !important;
+}
+html.accessibility-mode button:focus,
+html.accessibility-mode a:focus,
+html.accessibility-mode [role="button"]:focus,
+html.accessibility-mode input:focus,
+html.accessibility-mode select:focus,
+html.accessibility-mode textarea:focus {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 2px;
+  box-shadow: none !important;
+}
+html.accessibility-mode .text-yellow-300 {
+    color: #ffff00 !important;
+}
+
+/* Capacity Bar Patterns */
+html.accessibility-mode .capacity-bar-high {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      #ffdddd,
+      #ffdddd 10px,
+      #ffaaaa 10px,
+      #ffaaaa 20px
+    ) !important;
+}
+
+html.accessibility-mode .capacity-bar-medium {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      #fff0b3,
+      #fff0b3 10px,
+      #ffe066 10px,
+      #ffe066 20px
+    ) !important;
+}
+
+/* Incident Alert High Contrast */
+html.accessibility-mode .text-red-800,
+html.accessibility-mode .text-red-500 { color: #ff9999 !important; }
+html.accessibility-mode .text-yellow-800 { color: #ffff99 !important; }
+html.accessibility-mode .text-blue-800,
+html.accessibility-mode .text-blue-700,
+html.accessibility-mode .text-blue-600,
+html.accessibility-mode .text-blue-500 { color: #99ccff !important; }
+html.accessibility-mode .text-green-800 { color: #99ff99 !important; }
+
+html.accessibility-mode .border-red-500 { border-color: #ff4d4d !important; }
+html.accessibility-mode .border-yellow-500 { border-color: #ffff00 !important; }
+html.accessibility-mode .border-blue-500 { border-color: #66b3ff !important; }
+
+/* Map controls */
+html.accessibility-mode .leaflet-control-layers,
+html.accessibility-mode .leaflet-popup-content-wrapper {
+  background-color: #222 !important;
+  color: #fff !important;
+  border: 1px solid #fff;
+}
+html.accessibility-mode .leaflet-popup-content b {
+  color: #ffff00 !important;
+}

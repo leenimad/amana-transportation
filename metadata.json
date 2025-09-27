@@ -1,0 +1,5 @@
+{
+  "name": "Amana Transportation",
+  "description": "A real-time bus tracking application for Amana Transportation, allowing users to view active bus routes, locations, and schedules on an interactive map.",
+  "requestFramePermissions": []
+}
